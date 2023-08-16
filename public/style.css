@@ -1,0 +1,65 @@
+/* Apply styles to the body and center the content */
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f3f3;
+}
+
+/* Style for the welcome container */
+.welcome-container {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(20, 17, 17, 0.1);
+}
+
+/* Style for the welcome heading */
+.welcome-heading {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #0a0303;
+}
+
+/* Style for the email input */
+.welcome-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #d34b4b1c;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+/* Style for the subscribe button */
+.welcome-button {
+  background-color: #db3434;
+  color: #4f5a4b;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.welcome-input::placeholder {
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.welcome-button:hover {
+  background-color: #2980b9;
+}
+
+/* Style for the underline */
+.welcome-input::placeholder {
+  text-decoration: underline;
+  text-decoration-color: #3498db;
+}
