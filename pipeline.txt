@@ -1,0 +1,92 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Step 1: Installing dependencies...'
+                echo 'Step 2: Building the application...'
+                git branch: 'main', url: 'https://github.com/MatanginiGupta/Task2.1p-sit313.git'
+            }
+        }
+        stage('Testing') {
+            steps {
+                echo 'Step 3: Executing tests...'
+                
+                script {
+                    def emailScript = """
+                        \$SMTPServer = "smtp.gmail.com"
+                        \$SMTPFrom = "matangini4810.be22@chitkara.edu.in"
+                        \$SMTPTo = "matangini4810.be22@chitkara.edu.in"
+                        \$SMTPSubject = "Test Success Notification"
+                        \$SMTPBody = "The tests have passed successfully."
+                        \$SMTPUsername = "matangini4810.be22@chitkara.edu.in"
+                        \$SMTPPassword = "jbbw wpob zvlw waur"
+    
+                        Send-MailMessage -From \$SMTPFrom -To \$SMTPTo -Subject \$SMTPSubject -Body \$SMTPBody -SmtpServer \$SMTPServer -UseSsl -Port 587 -Credential (New-Object System.Management.Automation.PSCredential (\$SMTPUsername, (ConvertTo-SecureString -AsPlainText \$SMTPPassword -Force)))
+                    """
+                    powershell(emailScript)
+                }
+            }
+        }
+        stage('Code Analysis') {
+            steps {
+                echo 'Step 4: Analyzing code quality...'
+            }
+        }
+        stage('Security') {
+            steps {
+                echo 'Step 5: Conducting security scans...'
+                
+                script {
+                    def emailScript = """
+                        \$SMTPServer = "smtp.gmail.com"
+                        \$SMTPFrom = "matangini4810.be22@chitkara.edu.in"
+                        \$SMTPTo = "matangini4810.be22@chitkara.edu.in"
+                        \$SMTPSubject = "Security Checks Passed"
+                        \$SMTPBody = "The pipeline has successfully cleared security checks."
+                        \$SMTPUsername = "matangini4810.be22@chitkara.edu.in"
+                        \$SMTPPassword = "jbbw wpob zvlw waur"
+    
+                        Send-MailMessage -From \$SMTPFrom -To \$SMTPTo -Subject \$SMTPSubject -Body \$SMTPBody -SmtpServer \$SMTPServer -UseSsl -Port 587 -Credential (New-Object System.Management.Automation.PSCredential (\$SMTPUsername, (ConvertTo-SecureString -AsPlainText \$SMTPPassword -Force)))
+                    """
+                    powershell(emailScript)
+                }
+            }
+        }
+        
+        stage('Deploy Staging') {
+            steps {
+                echo 'Step 6: Deploying to staging environment...'
+            }
+        }
+        
+        stage('Integration Test') {
+            steps {
+                echo 'Step 7: Performing integration tests...'
+            }
+        }
+        
+        stage('Deploy Production') {
+            steps {
+                echo 'Step 8: Deploying to production environment...'
+            }
+        }
+    }
+    
+    post {
+        success {
+            emailext subject: "Notification: Pipeline '${currentBuild.fullDisplayName}' Successful",
+                      body: 'The build was successful. Congratulations!',
+                      to: 'matangini4810.be22@chitkara.edu.in',
+                      attachLog: true
+        }
+          
+        failure {
+            emailext subject: "Notification: Pipeline '${currentBuild.fullDisplayName}' Failed",
+                      body: 'The build has failed. Please investigate.',
+                      to: 'matangini4810.be22@chitkara.edu.in',
+                      attachLog: true
+        }
+    }
+}
