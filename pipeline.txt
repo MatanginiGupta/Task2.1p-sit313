@@ -7,11 +7,13 @@ pipeline {
                 echo 'Step 1: Installing dependencies...'
                 echo 'Step 2: Building the application...'
                 git branch: 'main', url: 'https://github.com/MatanginiGupta/Task2.1p-sit313.git'
+                echo 'Maven tool is used for this stage'
             }
         }
         stage('Testing') {
             steps {
                 echo 'Step 3: Executing tests...'
+                echo 'JUnit tool is used for this stage'
                 
                 script {
                     def emailScript = """
@@ -32,11 +34,13 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo 'Step 4: Analyzing code quality...'
+                echo 'Checkstyle tool is used for this stage'
             }
         }
         stage('Security') {
             steps {
                 echo 'Step 5: Conducting security scans...'
+                echo 'SonarQube tool is used for this stage'
                 
                 script {
                     def emailScript = """
@@ -58,18 +62,21 @@ pipeline {
         stage('Deploy Staging') {
             steps {
                 echo 'Step 6: Deploying to staging environment...'
+                echo 'Docker/ Jenkins deploy plugin tool is used for this stage'
             }
         }
         
         stage('Integration Test') {
             steps {
                 echo 'Step 7: Performing integration tests...'
+                echo 'JUnit is used for this stage or Selenium'
             }
         }
         
         stage('Deploy Production') {
             steps {
                 echo 'Step 8: Deploying to production environment...'
+                echo 'Docker/ Jenkins deploy plugin tool is used for this stage'
             }
         }
     }
